@@ -17,7 +17,7 @@ npm install @greg-md/ng-lazy-load --save
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-// 1. Import Lazy loading directive.
+// 1. Import lazy loading directive.
 import { LazyLoadDirective } from '@greg-md/ng-lazy-load';
 
 import { AppComponent } from './app.component';
@@ -28,7 +28,7 @@ import { AppComponent } from './app.component';
   ],
   declarations: [
     AppComponent,
-    // 2. Register Lazy loading directive.
+    // 2. Register lazy loading directive.
     LazyLoadDirective,
   ],
   bootstrap: [AppComponent]
