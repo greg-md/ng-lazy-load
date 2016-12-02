@@ -55,7 +55,7 @@ export class AppComponent { }
 ## threshold
 
 By default images are loaded when they appear on the screen.
-If you want images to load earlier use threshold parameter.
+If you want images to load earlier, use threshold parameter.
 Setting threshold to 200 causes image to load 200 pixels before it appears on viewport.
 
 _Example:_
