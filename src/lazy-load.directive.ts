@@ -16,7 +16,10 @@ export class LazyLoadDirective implements OnInit, AfterViewInit {
 
   constructor(private elementRef: ElementRef) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    // Int fix.
+    this.threshold = parseInt(this.threshold + '');
+  }
 
   ngAfterViewInit() {
     this.initLazyLoad();
