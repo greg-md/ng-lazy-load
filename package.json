@@ -1,0 +1,35 @@
+{
+  "name": "@greg-md/ng-lazy-load",
+  "version": "1.0.0",
+  "description": "Image Lazy loading for Angular2",
+  "scripts": {
+    "prepublish": "tsc",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/greg-md/ng-lazy-load"
+  },
+  "author": {
+    "name": "Grigorii Duca",
+    "email": "contact@greg.md"
+  },
+  "keywords": [
+    "angular",
+    "angular2",
+    "image",
+    "lazyload"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/greg-md/ng-lazy-load/issues"
+  },
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "devDependencies": {
+    "@angular/core": "^2.0.0",
+    "rxjs": "5.0.0-beta.12",
+    "typescript": "^2.0.10",
+    "zone.js": "^0.6.21"
+  }
+}
