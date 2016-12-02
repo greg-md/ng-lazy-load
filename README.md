@@ -36,7 +36,7 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-# Using in components/views
+# Using in templates
 
 ```typescript
 import { Component } from '@angular/core';
