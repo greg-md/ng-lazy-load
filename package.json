@@ -1,6 +1,6 @@
 {
   "name": "@greg-md/ng-lazy-load",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Image Lazy loading for Angular2",
   "scripts": {
     "prepublish": "tsc",

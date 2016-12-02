@@ -6,7 +6,7 @@ import { inViewport } from './lazy-load.utils';
   selector: '[gg-lazy-load]',
 })
 export class LazyLoadDirective implements OnInit, AfterViewInit {
-  @HostBinding('src') src: string;
+  @HostBinding('src') @Input() src: string;
 
   @Input('gg-lazy-load') lazySrc: string;
 
