@@ -1,6 +1,1 @@
-/src
-
-*.ts
-!*.d.ts
-
 /.idea
