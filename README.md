@@ -1,4 +1,4 @@
-# Image lazy loading directive for Angular2
+# Image lazy loading for Angular2
 
 [![npm version](https://badge.fury.io/js/%40greg-md%2Fng-lazy-load.svg)](https://badge.fury.io/js/%40greg-md%2Fng-lazy-load)
 [![Build Status](https://travis-ci.org/greg-md/ng-lazy-load.svg?branch=master)](https://travis-ci.org/greg-md/ng-lazy-load)
@@ -17,19 +17,19 @@ npm install @greg-md/ng-lazy-load --save
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-// 1. Import lazy loading directive.
-import { LazyLoadDirective } from '@greg-md/ng-lazy-load';
+// 1. Import lazy loading module.
+import { LazyLoadModule } from '@greg-md/ng-lazy-load';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
   imports: [
     BrowserModule,
+    // 2. Register lazy loading module.
+    LazyLoadModule,
   ],
   declarations: [
     AppComponent,
-    // 2. Register lazy loading directive.
-    LazyLoadDirective,
   ],
   bootstrap: [AppComponent]
 })
