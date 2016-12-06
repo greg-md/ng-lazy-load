@@ -1,22 +1,18 @@
-export function offset(elem: HTMLElement) {
-    let docElem: HTMLElement, rect: ClientRect, doc: Document;
-
-    if (!elem) {
-        return;
-    }
-
+export function offset(element: HTMLElement) {
     // Support: IE <=11 only
     // Running getBoundingClientRect on a
     // disconnected node in IE throws an error
-    if (!elem.getClientRects().length) {
+    if (!element || !element.getClientRects().length) {
         return { top: 0, left: 0 };
     }
 
-    rect = elem.getBoundingClientRect();
+    let docElem: HTMLElement, rect: ClientRect, doc: Document;
+
+    rect = element.getBoundingClientRect();
 
     // Make sure element is not hidden (display: none)
     if (rect.width || rect.height) {
-        doc = elem.ownerDocument;
+        doc = element.ownerDocument;
         docElem = doc.documentElement;
 
         return {
@@ -35,6 +31,10 @@ export interface ViewportSettings {
 }
 
 export function aboveTheTop(element: HTMLElement, settings: ViewportSettings = {}) {
+    if (!element) {
+        return false;
+    }
+
     let fold: number,
         container = settings.container || window,
         threshold = settings.threshold || 0;
@@ -45,10 +45,14 @@ export function aboveTheTop(element: HTMLElement, settings: ViewportSettings = {
         fold = window.scrollY;
     }
 
-    return fold >= offset(element).top + threshold + element.offsetHeight;
+    return fold >= (offset(element).top + threshold + element.offsetHeight);
 }
 
 export function rightOfFold(element: HTMLElement, settings: ViewportSettings = {}) {
+    if (!element) {
+        return false;
+    }
+
     let fold: number,
         container = settings.container || window,
         threshold = settings.threshold || 0;
@@ -63,6 +67,10 @@ export function rightOfFold(element: HTMLElement, settings: ViewportSettings = {
 }
 
 export function belowTheFold(element: HTMLElement, settings: ViewportSettings = {}) {
+    if (!element) {
+        return false;
+    }
+
     let fold: number,
         container = settings.container || window,
         threshold = settings.threshold || 0;
@@ -77,6 +85,10 @@ export function belowTheFold(element: HTMLElement, settings: ViewportSettings = 
 }
 
 export function leftOfBegin(element: HTMLElement, settings: ViewportSettings = {}) {
+    if (!element) {
+        return false;
+    }
+
     let fold: number,
         container = settings.container || window,
         threshold = settings.threshold || 0;

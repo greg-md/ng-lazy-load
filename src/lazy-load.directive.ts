@@ -26,10 +26,24 @@ export class LazyLoadDirective implements OnInit, AfterViewInit {
   }
 
   initLazyLoad() {
-    window.addEventListener('scroll', this.tryLoading);
-    window.addEventListener('resize', this.tryLoading);
+    if (window) {
+      window.addEventListener('scroll', this.tryLoading);
+      window.addEventListener('resize', this.tryLoading);
 
-    this.tryLoading();
+      this.tryLoading();
+    }
+  }
+
+  load() {
+    if (document) {
+      let img = document.createElement('img');
+
+      img.onload = () => {
+        this.src = this.lazySrc;
+      };
+
+      img.src = this.lazySrc;
+    }
   }
 
   tryLoading = () => {
@@ -40,14 +54,4 @@ export class LazyLoadDirective implements OnInit, AfterViewInit {
       window.removeEventListener('resize', this.tryLoading);
     }
   };
-
-  load() {
-    let img = document.createElement('img');
-
-    img.onload = () => {
-      this.src = this.lazySrc;
-    };
-
-    img.src = this.lazySrc;
-  }
 }
