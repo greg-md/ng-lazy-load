@@ -5,7 +5,7 @@
 
 Lazy loading images with Angular2.
 
-# Table of contents:
+# Table of Contents:
 
 * [Installation](#installation)
 * [How It Works](#how-it-works)
