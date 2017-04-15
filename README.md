@@ -83,7 +83,7 @@ _Example:_
 
 ```html
 <div #container>
-    <img src="loading.jpg" gg-lazy-load="lazy-image.jpg" [container]="container" />
+    <img src="loading.jpg" gg-lazy-load="lazy-image.jpg" threshold="200" [container]="container" />
 </div>
 ```
 
