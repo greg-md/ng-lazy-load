@@ -1,9 +1,9 @@
-# Image lazy loading for Angular2
+# Ng Lazy Load
 
 [![npm version](https://badge.fury.io/js/%40greg-md%2Fng-lazy-load.svg)](https://badge.fury.io/js/%40greg-md%2Fng-lazy-load)
 [![Build Status](https://travis-ci.org/greg-md/ng-lazy-load.svg?branch=master)](https://travis-ci.org/greg-md/ng-lazy-load)
 
-Lazy loading images with Angular2.
+Lazy loading images with Angular.
 
 # Table of Contents:
 
