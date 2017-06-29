@@ -1,7 +1,7 @@
 {
   "name": "@greg-md/ng-lazy-load",
   "version": "1.0.4",
-  "description": "Image Lazy loading for Angular2",
+  "description": "Lazy loading images with Angular2.",
   "repository": {
     "type": "git",
     "url": "https://github.com/greg-md/ng-lazy-load"
