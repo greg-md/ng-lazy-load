@@ -10,6 +10,7 @@ export class LazyLoadDirective implements OnInit, AfterViewInit, OnDestroy {
 
   @HostBinding('style.background-image') backgroundImage: string;
   @HostBinding('style.background-position') backgroundPosition: string;
+  @HostBinding('style.background-size') backgroundSize: string;
 
   @Input('gg-lazy-load') lazySrc: string;
 
@@ -35,6 +36,8 @@ export class LazyLoadDirective implements OnInit, AfterViewInit, OnDestroy {
       this.backgroundImage = 'url(' + this.bgSrc + ')';
 
       this.backgroundPosition = 'center center';
+
+      this.backgroundSize = 'cover';
     }
   }
 
