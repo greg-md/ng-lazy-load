@@ -87,6 +87,18 @@ _Example:_
 </div>
 ```
 
+## bg-src
+
+Set default image in background and lazy load image directly in the `src` attribute.
+
+> Useful with non-effective image URLs. This will avoid to load lazy image twice.
+
+_Example:_
+
+```html
+<img bg-src="loading.jpg" gg-lazy-load="lazy-image.jpg" width="200" height="200" />
+```
+
 # License
 
 MIT © [Grigorii Duca](http://greg.md)
