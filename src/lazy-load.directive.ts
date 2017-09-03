@@ -1,37 +1,56 @@
-import {Directive, OnInit, HostBinding, Input, ElementRef, AfterViewInit, OnDestroy} from '@angular/core';
+import {Directive, OnInit, HostBinding, Input, ElementRef, AfterViewInit, Renderer2, OnDestroy} from '@angular/core';
 
 import { inViewport } from './lazy-load.utils';
 
 @Directive({
-  selector: '[gg-lazy-load]',
+  selector: 'img[lazy-load]',
 })
-export class LazyLoadDirective implements OnInit, AfterViewInit, OnDestroy {
-  @HostBinding('src') @Input() src: string;
+export class LazyLoadDirective implements OnInit, OnDestroy {
+  @HostBinding('src') @Input() src: string = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
   @HostBinding('style.background-image') backgroundImage: string;
   @HostBinding('style.background-position') backgroundPosition: string;
   @HostBinding('style.background-size') backgroundSize: string;
 
-  @Input('gg-lazy-load') lazySrc: string;
+  @Input('lazy-load') lazySrc: string;
 
   @Input('bg-src') bgSrc: string;
 
-  @Input() threshold: number = 0;
+  private _threshold: number = 0;
+
+  @Input() set threshold(position: number) {
+    this._threshold = parseInt(this.threshold + '');
+  };
+
+  get thresold(): number {
+    return this._threshold;
+  }
 
   @Input() container: HTMLElement | Window;
 
-  loaded: boolean = false;
+  scrollUnload: () => void;
+  resizeUnload: () => void;
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+  ) { }
 
   ngOnInit() {
-    // Int fix.
-    this.threshold = parseInt(this.threshold + '');
+    this.initBgSrc();
 
-    if (!this.src) {
-      this.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-    }
+    this.initEvents();
+  }
 
+  ngAfterContentInit() {
+      this.tryLoading();
+  }
+
+  ngOnDestroy() {
+    this.unloadListeners();
+  }
+
+  initBgSrc() {
     if (this.bgSrc) {
       this.backgroundImage = 'url(' + this.bgSrc + ')';
 
@@ -41,51 +60,40 @@ export class LazyLoadDirective implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.initLazyLoad();
+  initEvents() {
+    this.scrollUnload = this.renderer.listen('window', 'scroll', () => {
+      this.tryLoading();
+    });
+
+    this.resizeUnload = this.renderer.listen('window', 'resize', () => {
+      this.tryLoading();
     });
   }
 
-  initLazyLoad() {
-    if (window) {
-      window.addEventListener('scroll', this.tryLoading);
-      window.addEventListener('resize', this.tryLoading);
+  tryLoading() {
+    if (inViewport(this.elementRef.nativeElement, {threshold: this.threshold, container: this.container})) {
+      this.load();
 
-      this.tryLoading();
+      this.unloadListeners();
     }
   }
 
   load() {
-    if (document) {
-      if (this.bgSrc) {
+    if (this.bgSrc) {
+      this.src = this.lazySrc;
+    } else {
+      let img: HTMLImageElement = this.renderer.createElement('img');
+
+      img.onload = () => {
         this.src = this.lazySrc;
-      } else {
-        let img = document.createElement('img');
+      };
 
-        img.onload = () => {
-          this.src = this.lazySrc;
-          this.loaded = true;
-        };
-
-        img.src = this.lazySrc;
-      }
+      img.src = this.lazySrc;
     }
   }
 
-  ngOnDestroy() {
-    if (window && !this.loaded) {
-      window.removeEventListener('scroll', this.tryLoading);
-      window.removeEventListener('resize', this.tryLoading);
-    }
+  unloadListeners() {
+    this.scrollUnload && this.scrollUnload();
+    this.resizeUnload && this.resizeUnload();
   }
-
-  tryLoading = () => {
-    if (inViewport(this.elementRef.nativeElement, {threshold: this.threshold, container: this.container})) {
-      this.load();
-
-      window.removeEventListener('scroll', this.tryLoading);
-      window.removeEventListener('resize', this.tryLoading);
-    }
-  };
 }

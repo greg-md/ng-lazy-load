@@ -54,7 +54,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <img src="loading.jpg" gg-lazy-load="lazy-image.jpg" />
+    <img src="loading.jpg" lazy-load="lazy-image.jpg" />
   `,
 })
 export class AppComponent { }
@@ -71,7 +71,7 @@ Setting threshold to 200 causes image to load 200 pixels before it appears on vi
 _Example:_
 
 ```html
-<img src="loading.jpg" gg-lazy-load="lazy-image.jpg" threshold="200" />
+<img src="loading.jpg" lazy-load="lazy-image.jpg" threshold="200" />
 ```
 
 ## container
@@ -83,7 +83,7 @@ _Example:_
 
 ```html
 <div #container>
-    <img src="loading.jpg" gg-lazy-load="lazy-image.jpg" threshold="200" [container]="container" />
+    <img src="loading.jpg" lazy-load="lazy-image.jpg" threshold="200" [container]="container" />
 </div>
 ```
 
@@ -96,7 +96,7 @@ Set default image in background and lazy load image directly in the `src` attrib
 _Example:_
 
 ```html
-<img bg-src="loading.jpg" gg-lazy-load="lazy-image.jpg" width="200" height="200" />
+<img bg-src="loading.jpg" lazy-load="lazy-image.jpg" width="200" height="200" />
 ```
 
 # License
