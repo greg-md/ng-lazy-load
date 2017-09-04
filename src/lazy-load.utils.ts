@@ -103,8 +103,8 @@ export function leftOfBegin(element: HTMLElement, settings: ViewportSettings = {
 }
 
 export function inViewport(element: HTMLElement, settings: ViewportSettings = {}) {
-    return !rightOfFold(element, settings)
+    return !belowTheFold(element, settings)
+        && !aboveTheTop(element, settings)
         && !leftOfBegin(element, settings)
-        && !belowTheFold(element, settings)
-        && !aboveTheTop(element, settings);
+        && !rightOfFold(element, settings);
 }
