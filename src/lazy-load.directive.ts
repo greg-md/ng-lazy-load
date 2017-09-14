@@ -1,4 +1,5 @@
-import {Directive, OnInit, HostBinding, Input, ElementRef, AfterViewInit, Renderer2, OnDestroy} from '@angular/core';
+import {Directive, OnInit, HostBinding, Input, ElementRef, AfterViewInit, Renderer2, OnDestroy, PLATFORM_ID, Inject} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 import { inViewport } from './lazy-load.utils';
 
@@ -34,6 +35,7 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: string
   ) { }
 
   ngOnInit() {
@@ -71,6 +73,10 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
   }
 
   tryLoading() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     if (inViewport(this.elementRef.nativeElement, {threshold: this.threshold, container: this.container})) {
       this.load();
 
