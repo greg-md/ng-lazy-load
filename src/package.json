@@ -1,6 +1,6 @@
 {
   "name": "@greg-md/ng-lazy-load",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Lazy loading images with Angular.",
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
   "typings": "ng-lazy-load.d.ts",
   "peerDependencies": {
     "@angular/core": "^4.0.0",
+    "@angular/common": "^4.0.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   }

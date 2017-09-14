@@ -1,4 +1,4 @@
-import {Directive, OnInit, HostBinding, Input, ElementRef, AfterViewInit, Renderer2, OnDestroy, PLATFORM_ID, Inject} from '@angular/core';
+import {Directive, OnInit, HostBinding, Input, ElementRef, Renderer2, OnDestroy, PLATFORM_ID, Inject} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 import { inViewport } from './lazy-load.utils';

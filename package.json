@@ -1,6 +1,6 @@
 {
   "name": "@greg-md/ng-lazy-load",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Lazy loading images with Angular.",
   "scripts": {
     "build": "gulp build",
