@@ -1,4 +1,14 @@
-import {Directive, OnInit, HostBinding, Input, ElementRef, Renderer2, OnDestroy, PLATFORM_ID, Inject} from '@angular/core';
+import {
+  Directive,
+  OnInit,
+  HostBinding,
+  Input,
+  ElementRef,
+  Renderer2,
+  OnDestroy,
+  PLATFORM_ID,
+  Inject
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 import { inViewport } from './lazy-load.utils';
@@ -19,7 +29,8 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
 
   private _threshold: number = 0;
 
-  @Input() set threshold(position: number) {
+  @Input()
+  set threshold(position: number) {
     this._threshold = parseInt(this.threshold + '');
   };
 
@@ -36,7 +47,8 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
     private elementRef: ElementRef,
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platformId: string
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.initBgSrc();
@@ -45,7 +57,7 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
   }
 
   ngAfterContentInit() {
-      this.tryLoading();
+    this.tryLoading();
   }
 
   ngOnDestroy() {
