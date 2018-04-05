@@ -13,10 +13,12 @@ Lazy loading images with Angular.
 * [License](#license)
 * [Huuuge Quote](#huuuge-quote)
 
-# Installation
+## Installation
+
+To install this library, run:
 
 ```bash
-npm install @greg-md/ng-lazy-load --save
+$ npm install @greg-md/ng-lazy-load --save
 ```
 
 # How It Works

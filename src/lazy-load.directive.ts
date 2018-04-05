@@ -7,7 +7,7 @@ import {
   Renderer2,
   OnDestroy,
   PLATFORM_ID,
-  Inject
+  Inject, AfterContentInit
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -16,8 +16,8 @@ import { inViewport } from './lazy-load.utils';
 @Directive({
   selector: 'img[lazy-load]',
 })
-export class LazyLoadDirective implements OnInit, OnDestroy {
-  @HostBinding('src') @Input() src: string = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+export class LazyLoadDirective implements OnInit, OnDestroy, AfterContentInit {
+  @HostBinding('src') @Input() src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
   @HostBinding('style.background-image') backgroundImage: string;
   @HostBinding('style.background-position') backgroundPosition: string;
@@ -27,20 +27,21 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
 
   @Input('bg-src') bgSrc: string;
 
-  private _threshold: number = 0;
+  private _threshold = 0;
 
   @Input()
   set threshold(position: number) {
-    this._threshold = parseInt(this.threshold + '');
-  };
+    this._threshold = parseInt(this.threshold + '', 10);
+  }
 
   get thresold(): number {
     return this._threshold;
   }
 
-  @Input() container: HTMLElement | Window;
+  @Input() container: HTMLElement;
 
   scrollUnload: () => void;
+  containerScrollUnload: () => void;
   resizeUnload: () => void;
 
   constructor(
@@ -79,6 +80,12 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
       this.tryLoading();
     });
 
+    if (this.container) {
+      this.containerScrollUnload = this.renderer.listen(this.container, 'scroll', () => {
+        this.tryLoading();
+      });
+    }
+
     this.resizeUnload = this.renderer.listen('window', 'resize', () => {
       this.tryLoading();
     });
@@ -89,7 +96,19 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
       return;
     }
 
-    if (inViewport(this.elementRef.nativeElement, {threshold: this.threshold, container: this.container})) {
+    if (this.container && inViewport(this.container, {threshold: this.threshold})) {
+      this.tryImgLoading();
+    } else if (!this.container) {
+      this.tryImgLoading();
+    }
+  }
+
+  tryImgLoading() {
+    const inWindowViewport = this.container ? inViewport(this.elementRef.nativeElement, {threshold: this.threshold}) : false;
+    const inContainerViewport = inViewport(this.elementRef.nativeElement, {threshold: this.threshold, container: this.container});
+
+    if (inWindowViewport && inContainerViewport) {
+      console.log('in viewport', this.container);
       this.load();
 
       this.unloadListeners();
@@ -111,7 +130,16 @@ export class LazyLoadDirective implements OnInit, OnDestroy {
   }
 
   unloadListeners() {
-    this.scrollUnload && this.scrollUnload();
-    this.resizeUnload && this.resizeUnload();
+    if (this.scrollUnload) {
+      this.scrollUnload();
+    }
+
+    if (this.containerScrollUnload) {
+      this.containerScrollUnload();
+    }
+
+    if (this.resizeUnload) {
+      this.resizeUnload();
+    }
   }
 }
